@@ -1,6 +1,6 @@
 body	{background: #333;}
 
-#page:after	{content: "Smartphone Layout";}
+#page:after	{content: "Smartphone Layout"; color: white;}
 .no-narrow	{display: none;}
 
 body	{font-size: xx-large;}
