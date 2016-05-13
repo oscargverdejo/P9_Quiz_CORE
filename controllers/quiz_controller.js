@@ -15,22 +15,36 @@ exports.load = function(req, res, next, quizId){
 
 //GET /quizzes
 exports.index = function(req, res, next){
+	var format = req.params.format || 'html';
 	var search = req.query.search || '';
 	var busqueda = search.replace(" ", "%");
+	
 	models
 	.Quiz
 	.findAll({where: {question: { $like: "%"+busqueda+"%"}}, order: 'question'})
 	.then(function(quizzes){
-		res.render('quizzes/index.ejs', {quizzes: quizzes});
+		if (format == 'json'){
+			res.send(JSON.stringify(quizzes));
+		}
+		else{
+			res.render('quizzes/index.ejs', {quizzes: quizzes});
+		}
+		
 	})
 	.catch(function(error){next(error);});
+	
 };
-
 //GET /quizzes/:id
 exports.show = function(req, res, next){
+	var format = req.params.format || 'html';
 	var answer = req.query.answer || '';
+	if (format == 'json'){
+		res.send(JSON.stringify(req.quiz));
+	}
+	else{
 	res.render('quizzes/show', {quiz: req.quiz,
 								answer: answer});
+	}
 };
 
 //GET /quizzes/:id/check
