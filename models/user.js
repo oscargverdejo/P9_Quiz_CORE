@@ -22,8 +22,15 @@ module.exports = function(sequelize, DataTypes){
 	  isAdmin: {
 	  		type: DataTypes.BOOLEAN,
 	  		defaultValue: false
-	  	}
-	  });
+	  }
+	 },
+	 { instanceMethods: {
+	 	verifyPassword: function(password){
+	 		return encryptPassword(password, this.salt) === this.password;
+	 	}
+	 }
+
+	});
 };
 
 //Encripta un password en claro. Mezcla un password en claro con el salt proporcionado, ejecuta un SHA1 digest, y devuelve 40 caracteres hexadecimales
