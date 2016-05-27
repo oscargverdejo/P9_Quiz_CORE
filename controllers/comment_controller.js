@@ -33,7 +33,7 @@ exports.create = function(req, res, next){
 		  AuthorId: authorId
 		});
 
-	comment.save()({fields: ["text", "QuizId", "AuthorId"]})
+	comment.save()//({fields: ["text", "QuizId", "AuthorId"]})
 		.then(function(comment){
 			req.flash('success', 'Comentario creado con éxito.');
 			res.redirect('/quizzes/' + req.quiz.id);
